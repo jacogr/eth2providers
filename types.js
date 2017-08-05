@@ -1,12 +1,11 @@
 // @flow
 
-/*:: export type ProviderResultCallback = (error: ?Error, result?: string) => void */
-/*:: export type ProviderSubscribeCallback = (error: ?Error, result?: string | { [string]: any }) => void */
+/*:: export type ProviderResultCallback = (error: ?Error, result?: any) => void */
 
 /*:: export interface ProviderInterface {
   +send: (method: string, params: Array<string>, callback: ProviderResultCallback) => number,
   +sendPromise: (method: string, params: Array<string>) => Promise<string>,
-  +subscribe: (method: string, params: Array<string>, callback: ProviderSubscribeCallback) => Promise<string>
+  +subscribe: (method: string, params: Array<string>, callback: ProviderResultCallback) => Promise<string>
 } */
 
 /*:: export type JsonRpcVersion = '2.0' */
@@ -30,15 +29,13 @@
 } */
 
 /*:: export type JsonRpcAsyncResponse = JsonRpcBaseResponse & {
-  result: string
+  result: any
 } */
 
 /*:: export type JsonRpcSubscriptionResponse = JsonRpcBaseResponse & {
   method: string,
   params: {
-    result: {
-      [string]: any
-    },
+    result: any,
     subscription: string
   },
 } */

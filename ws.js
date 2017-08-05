@@ -5,7 +5,7 @@ const WebSocketClient = require('websocket').client;
 
 const JsonRpc = require('./jsonrpc');
 
-/*:: import type { JsonRpcError, JsonRpcAsyncResponse, JsonRpcSubscriptionResponse, ProviderInterface, ProviderResultCallback, ProviderSubscribeCallback } from './types' */
+/*:: import type { JsonRpcError, JsonRpcAsyncResponse, JsonRpcSubscriptionResponse, ProviderInterface, ProviderResultCallback } from './types' */
 
 /*:: type WsRpcOptions = {
   host: string,
@@ -18,7 +18,7 @@ const JsonRpc = require('./jsonrpc');
 } */
 
 /*:: type WsSubscriptionType = {
-  callbacks: Array<ProviderSubscribeCallback>,
+  callbacks: Array<ProviderResultCallback>,
   id: string,
   method: string,
   result: ?JsonRpcSubscriptionResponse
@@ -86,7 +86,7 @@ class Ws extends JsonRpc /*:: implements ProviderInterface */ {
     l.error(error);
   }
 
-  _onMessageAsync (id/*: number */, error/*: ?JsonRpcError */, result/*: string */) {
+  _onMessageAsync (id/*: number */, error/*: ?JsonRpcError */, result/*: any */) {
     if (!this._handlers[id]) {
       this.emit('error', new Error(`Unable to find handler for message '${id}'`));
       return;
@@ -107,7 +107,7 @@ class Ws extends JsonRpc /*:: implements ProviderInterface */ {
     delete this._handlers[id];
   }
 
-  _onMessageSubscription (id/*: string */, _error/*: ?JsonRpcError */, result/*: { [string]: any } */) {
+  _onMessageSubscription (id/*: string */, _error/*: ?JsonRpcError */, result/*: any */) {
     if (!this._subscriptions[id]) {
       this.emit('error', new Error(`Unable to find subscription for '${id}'`));
       return;
@@ -178,17 +178,17 @@ class Ws extends JsonRpc /*:: implements ProviderInterface */ {
 
   sendPromise (method/*: string */, params/*: Array<string> */)/*: Promise<string> */ {
     return new Promise((resolve, reject) => {
-      this.send(method, params, (error/*: ?Error */, result/*: ?string */) => {
+      this.send(method, params, (error/*: ?Error */, result/*: any */) => {
         if (error) {
           reject(error);
         } else {
-          resolve(result || '');
+          resolve(result);
         }
       });
     });
   }
 
-  async subscribe (method/*: string */, params/*: Array<string> */, callback/*: ProviderSubscribeCallback */)/*: Promise<string> */ {
+  async subscribe (method/*: string */, params/*: Array<string> */, callback/*: ProviderResultCallback */)/*: Promise<string> */ {
     const subscription/*: ?WsSubscriptionType */ = (((Object
       .values(this._subscriptions)/*: any */)/*: Array<WsSubscriptionType> */)
       .find((subscription/*: WsSubscriptionType */) => subscription.method === method)/*: ?WsSubscriptionType */);
@@ -199,7 +199,7 @@ class Ws extends JsonRpc /*:: implements ProviderInterface */ {
       callbacks.push(callback);
 
       if (result) {
-        callback(null, result || '');
+        callback(null, result);
       }
 
       return id;
