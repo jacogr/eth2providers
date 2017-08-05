@@ -3,9 +3,9 @@
 /*:: export type ProviderResultCallback = (error: ?Error, result?: any) => void */
 
 /*:: export interface ProviderInterface {
-  +send: (method: string, params: Array<string>, callback: ProviderResultCallback) => number,
-  +sendPromise: (method: string, params: Array<string>) => Promise<string>,
-  +subscribe: (method: string, params: Array<string>, callback: ProviderResultCallback) => Promise<string>
+  +send: (method: string, params: Array<boolean | number | string>, callback: ProviderResultCallback) => number,
+  +sendPromise: (method: string, params: Array<boolean | number | string>) => Promise<string>,
+  +subscribe: (method: string, params: Array<boolean | number | string>, callback: ProviderResultCallback) => Promise<string>
 } */
 
 /*:: export type JsonRpcVersion = '2.0' */
@@ -14,7 +14,7 @@
   id: number,
   jsonrpc: JsonRpcVersion,
   method: string,
-  params: Array<string>
+  params: Array<boolean | number | string>
 } */
 
 /*:: export type JsonRpcError = {

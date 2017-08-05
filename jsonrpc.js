@@ -13,7 +13,7 @@ class JsonRpc extends EventEmitter {
     this._id = 0;
   }
 
-  _encode (method/*: string */, params/*: Array<string> */)/*: { id: number, json: string } */ {
+  _encode (method/*: string */, params/*: Array<boolean | number | string> */)/*: { id: number, json: string } */ {
     const id/*: number */ = ++this._id;
     const json/*: string */ = JSON.stringify(({
       id,

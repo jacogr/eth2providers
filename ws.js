@@ -159,7 +159,7 @@ class Ws extends JsonRpc /*:: implements ProviderInterface */ {
     }
   }
 
-  send (method/*: string */, params/*: Array<string> */, callback/*: ProviderResultCallback */)/*: number */ {
+  send (method/*: string */, params/*: Array<boolean | number | string> */, callback/*: ProviderResultCallback */)/*: number */ {
     const { id, json } = this._encode(method, params);
 
     this._handlers[id] = {
@@ -176,7 +176,7 @@ class Ws extends JsonRpc /*:: implements ProviderInterface */ {
     return id;
   }
 
-  sendPromise (method/*: string */, params/*: Array<string> */)/*: Promise<string> */ {
+  sendPromise (method/*: string */, params/*: Array<boolean | number | string> */)/*: Promise<string> */ {
     return new Promise((resolve, reject) => {
       this.send(method, params, (error/*: ?Error */, result/*: any */) => {
         if (error) {
@@ -188,7 +188,7 @@ class Ws extends JsonRpc /*:: implements ProviderInterface */ {
     });
   }
 
-  async subscribe (method/*: string */, params/*: Array<string> */, callback/*: ProviderResultCallback */)/*: Promise<string> */ {
+  async subscribe (method/*: string */, params/*: Array<boolean | number | string> */, callback/*: ProviderResultCallback */)/*: Promise<string> */ {
     const subscription/*: ?WsSubscriptionType */ = (((Object
       .values(this._subscriptions)/*: any */)/*: Array<WsSubscriptionType> */)
       .find((subscription/*: WsSubscriptionType */) => subscription.method === method)/*: ?WsSubscriptionType */);

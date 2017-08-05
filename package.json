@@ -1,6 +1,6 @@
 {
   "name": "eth2providers",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Ethereum providers",
   "main": "index.js",
   "scripts": {
