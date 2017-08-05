@@ -1,6 +1,6 @@
 // @flow
 
-const l = require('abc2logger')('Ws', false);
+const l = require('eth2logger')('Ws', false);
 const WebSocketClient = require('websocket').client;
 
 const JsonRpc = require('./jsonrpc');

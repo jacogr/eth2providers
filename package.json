@@ -1,6 +1,6 @@
 {
   "name": "eth2providers",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Ethereum providers",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/jacogr/eth2providers#readme",
   "dependencies": {
-    "abc2logger": "jacogr/abc2logger",
+    "eth2logger": "jacogr/eth2logger",
     "events": "^1.1.1",
     "websocket": "^1.0.24"
   },
