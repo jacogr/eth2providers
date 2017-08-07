@@ -2,7 +2,12 @@
 
 const { EventEmitter } = require('events');
 
-/*:: import type { JsonRpcVersion, JsonRpcRequest, JsonRpcError, JsonRpcAsyncResponse, JsonRpcSubscriptionResponse, ProviderInterface, ProviderResultCallback } from './types' */
+/*:: import type { JsonRpcVersion, JsonRpcRequest, JsonRpcError, JsonRpcAsyncResponse, JsonRpcSubscriptionResponse, ParamsType, ProviderInterface, ProviderResultCallback } from './types' */
+
+/*:: type EncodeResultType = {
+  id: number,
+  json: string
+} */
 
 class JsonRpc extends EventEmitter {
   /*:: _id: number */
@@ -13,7 +18,7 @@ class JsonRpc extends EventEmitter {
     this._id = 0;
   }
 
-  _encode (method/*: string */, params/*: Array<boolean | number | string> */)/*: { id: number, json: string } */ {
+  _encode (method/*: string */, params/*: ParamsType */)/*: EncodeResultType */ {
     const id/*: number */ = ++this._id;
     const json/*: string */ = JSON.stringify(({
       id,

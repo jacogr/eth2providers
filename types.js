@@ -4,7 +4,7 @@
 
 /*:: export interface ProviderInterface {
   +send: (method: string, params: Array<boolean | number | string>, callback: ProviderResultCallback) => number,
-  +sendPromise: (method: string, params: Array<boolean | number | string>) => Promise<string>,
+  +sendPromise: (method: string, params: Array<boolean | number | string>) => Promise<any>,
   +subscribe: (method: string, params: Array<boolean | number | string>, callback: ProviderResultCallback) => Promise<string>
 } */
 
@@ -39,3 +39,5 @@
     subscription: string
   },
 } */
+
+/*:: export type ParamsType = Array<boolean | number | string> */
